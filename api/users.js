@@ -1,7 +1,7 @@
 import express from "express"
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
-import { createNewUser, getUser, getUserByID } from "../db/queries/users.js"
+import { createUser, getUser, getUserByID } from "../db/queries/users.js"
 import { verifyToken } from "../app.js"
 
 const router = express.Router()
@@ -28,7 +28,7 @@ router.route("/login").post(async(req, res, next)=>{
     }
 
     const token = jwt.sign(
-        {id: userProfile.id, username: userProfile.username},
+        {id: userProfile.id, email: userProfile.email},
         process.env.JWT_SECRET
     );
     res.status(200).json(token)
@@ -36,14 +36,14 @@ router.route("/login").post(async(req, res, next)=>{
 
 //POST /users/register
 router.route("/register").post(async(req, res, next)=> {
-    const {username, password} = req.body
+    const {email, password} = req.body
 
-    if (!username || !password){
-        return res.status(400)("Missing username or password")
+    if (!email || !password){
+        return res.status(400).send("Missing username or password")
     }
 
-    const newUser = await createNewUser({username, password})
-    const token = jwt.sign({id: newUser.id, username: newUser.username}, process.env.JWT_SECRET)
+    const newUser = await createUser({email, password})
+    const token = jwt.sign({id: newUser.id, email: newUser.email}, process.env.JWT_SECRET)
 
     res.status(200).json(token)
 })
