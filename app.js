@@ -4,6 +4,7 @@ import cors from "cors"
 const app = express()
 export default app
 import usersRouter from "./api/users.js"
+import strategyRouter from "./api/strategy.js"
 
 
 app.use(cors());
@@ -11,6 +12,8 @@ app.use(cors());
 app.use(express.json())
 
 app.use("/users", usersRouter)
+
+app.use("/strategy", strategyRouter )
 
 
 

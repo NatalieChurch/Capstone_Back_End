@@ -4,6 +4,27 @@ DROP TABLE IF EXISTS cards CASCADE;
 DROP TABLE IF EXISTS strategy;
 DROP TABLE IF EXISTS users CASCADE;
 
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    email TEXT UNIQUE NOT NULL,
+    password TEXT UNIQUE NOT NULL
+);
+
+CREATE TABLE cards (
+    id SERIAL PRIMARY KEY,
+    rank TEXT NOT NULL, 
+    suit TEXT NOT NULL, 
+    card_value INTEGER NOT NULL
+);
+
+CREATE TABLE strategy (
+    id SERIAL PRIMARY KEY,
+    players_hand TEXT NOT NULL,
+    dealers_upcard TEXT NOT NULL, 
+    recc_action TEXT NOT NULL, 
+    hand_type TEXT NOT NULL
+);
+
 CREATE TABLE hand (
     id SERIAL PRIMARY KEY,
     card_id INTEGER NOT NULL, 
@@ -21,27 +42,9 @@ CREATE TABLE shoe (
     FOREIGN KEY (card_id) REFERENCES cards(id)
     ON DELETE CASCADE,
     deck_num INTEGER NOT NULL, 
-    drawn BOOLEAN
+    drawn BOOLEAN DEFAULT FALSE
 );
 
-CREATE TABLE cards (
-    id SERIAL PRIMARY KEY,
-    rank TEXT NOT NULL, 
-    suit TEXT NOT NULL, 
-    value INTEGER NOT NULL
-    -- does the name "value" work? it seems like a keyword
-);
 
-CREATE TABLE strategy (
-    id SERIAL PRIMARY KEY,
-    players_hand TEXT NOT NULL,
-    dealers_upcard TEXT NOT NULL, 
-    recc_action TEXT NOT NULL, 
-    hand_type TEXT NOT NULL
-);
 
-CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    email TEXT UNIQUE NOT NULL,
-    password TEXT UNIQUE NOT NULL
-);
+
