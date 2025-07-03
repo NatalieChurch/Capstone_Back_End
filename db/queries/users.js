@@ -1,23 +1,23 @@
 import db from "../../db/client.js"
 import bcrypt from "bcrypt"
 
-export async function createNewUser({username, password}){
+export async function createUser({email, password}){
     const securePassword = await bcrypt.hash(password, 10)
     const sql = `
-    INSERT INTO users (username, password)
+    INSERT INTO users (email, password)
     VALUES ($1, $2)
     RETURNING *;
     `
-    const {rows: [user]} = await db.query(sql, [username, securePassword])
+    const {rows: [user]} = await db.query(sql, [email, securePassword])
     return user
 }
 
-export async function getUser({username}){
+export async function getUser({email}){
     const sql = `
     SELECT * FROM users 
-    WHERE username = $1;
+    WHERE email = $1;
     `
-    const {rows: [user]} = await db.query(sql, [username])
+    const {rows: [user]} = await db.query(sql, [email])
     return user
 }
 
