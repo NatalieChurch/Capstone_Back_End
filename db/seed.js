@@ -12,8 +12,8 @@ console.log("🌱 Database seeded.");
 
 async function seed(){
 
-await createUser({
-    email: "dealer@dealer.com",
+const newUser = await createUser({
+    email: "user1@mail.com",
     password: "1234"
 })
 

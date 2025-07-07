@@ -5,8 +5,6 @@ const app = express()
 export default app
 import usersRouter from "./api/users.js"
 import strategyRouter from "./api/strategy.js"
-import handRouter from "./api/hand.js"
-import shoeRouter from "./api/shoe.js"
 
 
 app.use(cors());
@@ -16,10 +14,6 @@ app.use(express.json())
 app.use("/users", usersRouter)
 
 app.use("/strategy", strategyRouter )
-
-app.use("/hand", handRouter)
-
-app.use("/shoe", shoeRouter)
 
 
 
