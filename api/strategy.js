@@ -3,7 +3,8 @@ import { getStrategy } from "../db/queries/strategy.js"
 const router = express.Router()
 export default router
 
-router.route('/').get(async(req, res, next)=>{
+//POST  a reccommended action based on your hand
+router.route('/').post(async(req, res, next)=>{
     const { players_hand, dealers_upcard, hand_type } = req.body;
 
     if (!players_hand || !dealers_upcard || !hand_type) {
