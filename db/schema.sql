@@ -33,8 +33,7 @@ CREATE TABLE hand (
     is_player BOOLEAN NOT NULL, 
     user_id INTEGER NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
-    ON DELETE CASCADE,
-    hand_num INTEGER DEFAULT 1
+    ON DELETE CASCADE
 );
 
 CREATE TABLE shoe (
